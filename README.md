@@ -110,6 +110,6 @@ class ViewController: UIViewController, OnboardingKitDelegate {
 }
 ```
 
-## Credits
+## Author
 
 - Website - [João Pedro Oliveira](https://joaospedro.me)
