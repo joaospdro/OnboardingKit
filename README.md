@@ -49,7 +49,7 @@ If you prefer not to use Swift Package Manager, you can integrate OnboardingKit 
 import UIKit
 import OnboardingKit
 
-class ViewController: UIViewController, OnboardingKitDelegate {
+class ViewController: UIViewController {
   
   private var onboardingKit: OnboardingKit?
 
@@ -69,13 +69,15 @@ class ViewController: UIViewController, OnboardingKitDelegate {
           .init(image: UIImage(named: "imSlide5")!,
                 title: "Save and earn cashback with Deals or eCards")
         ],
-        tintColor: UIColor(red: 220/255, green: 20/255, blue: 60/255, alpha: 1.0))
+        tintColor: UIColor(red: 220/255, green: 20/255, blue: 60/255, alpha: 1.0),
+        themeFont: UIFont(name: "American Typewriter Bold", size: 28) ?? .systemFont(ofSize: 28, weight: .bold))
       self.onboardingKit?.delegate = self
       self.onboardingKit?.launchOnboarding(rootVC: self)
     }
   }
-  
-  // MARK: - OnboardingKitDelegate {
+}
+
+extension ViewController: OnboardingKitDelegate {
   func nextButtonDidTap(atIndex index: Int) {
     print("next button is tapped at index: \(index)")
   }
@@ -83,7 +85,7 @@ class ViewController: UIViewController, OnboardingKitDelegate {
   func getStartedButtonDidTap() {
     onboardingKit?.dismissOnboarding()
     onboardingKit = nil
-    transit(viewController: AnotherViewController())
+    transit(viewController: MainViewController())
   }
   
   private func transit(viewController: UIViewController) {
@@ -109,6 +111,21 @@ class ViewController: UIViewController, OnboardingKitDelegate {
       animations: nil,
       completion: nil)
   }
+}
+
+class MainViewController: UIViewController {
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let label = UILabel()
+    label.text = "Main View Controller"
+    view.addSubview(label)
+    label.snp.makeConstraints { make in
+      make.center.equalTo(view)
+    }
+    view.backgroundColor = .gray
+  }
+  
 }
 ```
 
